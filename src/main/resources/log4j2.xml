@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    
+    <Properties>
+        <Property name="logsfolder">swingapp_logs</Property>
+        <Property name="logspattern">[%-5level] %d{yyyy-MM-dd HH:mm:ss} [%C] - %m%ex%n</Property>
+    </Properties>
+    
+    <Appenders>
+        <Console name="app_stdout">
+            <PatternLayout pattern="${logspattern}" />
+        </Console>
+        <RollingFile name="app_logfile" fileName="${logsfolder}/app.log" filePattern="${logsfolder}/app_%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="${logspattern}" />
+            <TimeBasedTriggeringPolicy />
+            <DefaultRolloverStrategy>
+                <Delete basePath="${logsfolder}">
+                    <IfFileName glob="app*.log"/>
+                    <IfLastModified age="2d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+    
+    <Loggers>
+        <!-- Log everything in hibernate -->
+        <Logger name="org.hibernate" level="${sys:app.logging.level:-info}" additivity="false">
+            <AppenderRef ref="app_stdout" />
+            <AppenderRef ref="app_logfile" />
+        </Logger>
+        <!-- Log custom packages -->
+        <Logger name="appLogger" level="${sys:app.logging.level:-warn}" additivity="false">
+            <AppenderRef ref="app_stdout" />
+            <AppenderRef ref="app_logfile" />
+        </Logger>
+
+        <Root level="off"/>
+    </Loggers>
+    
+</Configuration>

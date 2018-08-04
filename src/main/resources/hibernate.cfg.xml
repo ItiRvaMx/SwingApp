@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <property name="hibernate.format_sql">true</property>
+    <property name="hibernate.show_sql">true</property>
+    <mapping package="entities"/>
+    <mapping class="entities.Customer"/>
+    <mapping class="entities.CustomerAddress"/>
+    <mapping class="entities.Sysuser"/>
+  </session-factory>
+</hibernate-configuration>
